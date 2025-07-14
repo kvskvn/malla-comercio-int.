@@ -1,145 +1,132 @@
-:root {
-  --color-navy: #001f3f;
-  --color-indigo: #3f51b5;
-  --color-indigo-light: #7986cb;
-  --color-white: #ffffff;
-  --color-gray-dark: #222;
-  --color-gray-light: #ccc;
-  --color-green: #4caf50;
-  --color-red: #f44336;
-  --color-blue-dark: #0d1b3d;
-}
-
-* {
-  box-sizing: border-box;
-}
-
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--color-navy);
-  color: var(--color-white);
+  background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3f51b5 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #e3e7fa;
   margin: 0;
-  padding: 1rem;
-  min-height: 100vh;
+  padding: 0;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 1rem;
-  color: var(--color-indigo-light);
-  text-shadow: 0 0 5px var(--color-indigo);
+h1, h2, h3 {
+  color: #c5cae9;
+  text-shadow: 0 2px 6px #0d133a;
 }
 
-#malla-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
+#mallagrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin: 40px auto;
+  max-width: 1500px;
 }
 
-.year-section {
-  background-color: var(--color-blue-dark);
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 0 10px var(--color-indigo);
+.trimestre {
+  background: rgba(26, 35, 126, 0.95);
+  border-radius: 18px;
+  box-shadow: 0 6px 24px #13206070;
+  padding: 18px 24px 18px 24px;
+  min-width: 320px;
+  margin-bottom: 16px;
+  border: 2px solid #3949ab;
 }
 
-.year-title {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 2px solid var(--color-indigo-light);
-  padding-bottom: 0.25rem;
-  color: var(--color-indigo-light);
+.trimestre h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  border-bottom: 1.5px solid #303f9f;
+  padding-bottom: 2px;
 }
 
-.trimester-section {
-  margin-top: 1rem;
-}
-
-.trimester-title {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
-  color: var(--color-indigo);
-  border-bottom: 1px solid var(--color-indigo-light);
-  padding-bottom: 0.2rem;
-}
-
-.ramos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 0.75rem;
+.ramo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .ramo {
-  background-color: var(--color-indigo);
-  border-radius: 6px;
-  padding: 0.5rem;
-  color: var(--color-white);
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  user-select: none;
-  border: 2px solid transparent;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ramo-btn {
+  min-width: 32px;
+  min-height: 32px;
+  max-width: 32px;
+  max-height: 32px;
+  border-radius: 8px;
+  background: #3949ab;
+  border: 2px solid #5c6bc0;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2em;
+  box-shadow: 0 1px 6px #121b4e70;
+  transition: background 0.2s, border 0.2s;
+  cursor: pointer;
+  outline: none;
+  display: flex;
   align-items: center;
-  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-  min-height: 70px;
-  text-align: center;
-  position: relative;
+  justify-content: center;
 }
 
-.ramo-code {
-  font-family: monospace;
-  font-size: 0.85rem;
-  margin-bottom: 0.2rem;
-  color: var(--color-indigo-light);
-}
-
-.ramo.locked {
-  background-color: var(--color-gray-dark);
-  color: var(--color-gray-light);
+.ramo-btn:disabled {
+  background: #1a237e;
+  border: 2px solid #263170;
+  color: #9fa8da;
   cursor: not-allowed;
-  border-color: var(--color-gray-light);
-  box-shadow: none;
-  pointer-events: none;
 }
 
-.ramo.unlocked {
-  background-color: var(--color-indigo);
-  border-color: var(--color-indigo-light);
-  cursor: pointer;
-  color: var(--color-white);
+.ramo-btn.aprobado {
+  background: #43a047;
+  border: 2px solid #81c784;
+  color: #fff;
+  animation: aprobadoGlow 1s ease;
 }
 
-.ramo.approved {
-  background-color: var(--color-green);
-  border-color: #2e7d32;
-  color: var(--color-white);
-  box-shadow: 0 0 10px var(--color-green);
-  cursor: pointer;
-  pointer-events: auto;
+@keyframes aprobadoGlow {
+  0% { box-shadow: 0 0 8px 4px #81c78480; }
+  100% { box-shadow: 0 0 0 0 #81c78400; }
 }
 
-.ramo[data-prereq]:hover::after {
-  content: attr(data-prereq);
-  position: absolute;
-  background-color: var(--color-indigo);
-  color: var(--color-white);
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  white-space: nowrap;
-  transform: translateY(-120%);
-  pointer-events: none;
-  z-index: 10;
-  box-shadow: 0 0 5px var(--color-indigo-light);
+.ramo-info {
+  flex: 1;
+  margin-left: 4px;
 }
 
-@media (max-width: 600px) {
-  .ramos-grid {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+.ramo-codigo {
+  color: #b3c2f2;
+  font-weight: bold;
+  font-size: 0.97em;
+}
+
+.ramo-nombre {
+  color: #fff;
+  font-size: 1.02em;
+  margin-left: 8px;
+}
+
+.ramo-requisitos {
+  color: #a5b4e3;
+  font-size: 0.92em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.ramo-abre {
+  color: #fffde7;
+  font-size: 0.88em;
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  #mallagrid {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+  .trimestre {
+    width: 95vw;
+    min-width: 0;
+    max-width: 98vw;
   }
 }
