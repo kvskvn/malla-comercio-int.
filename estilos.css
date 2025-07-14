@@ -16,7 +16,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: var(--color-navy);
+  background-color: var(--color-navy);
   color: var(--color-white);
   margin: 0;
   padding: 1rem;
@@ -40,7 +40,7 @@ h1 {
 
 /* Año y trimestre contenedores */
 .year-section {
-  background: var(--color-blue-dark);
+  background-color: var(--color-blue-dark);
   border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 0 10px var(--color-indigo);
@@ -75,7 +75,7 @@ h1 {
 
 /* Cada ramo como botón */
 .ramo {
-  background: var(--color-indigo);
+  background-color: var(--color-indigo);
   border-radius: 6px;
   padding: 0.5rem;
   color: var(--color-white);
@@ -91,6 +91,7 @@ h1 {
   transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
   min-height: 70px;
   text-align: center;
+  position: relative;
 }
 
 /* Código del ramo */
@@ -105,7 +106,7 @@ h1 {
 
 /* Bloqueado (no puede clicarse) */
 .ramo.locked {
-  background: var(--color-gray-dark);
+  background-color: var(--color-gray-dark);
   color: var(--color-gray-light);
   cursor: not-allowed;
   border-color: var(--color-gray-light);
@@ -115,7 +116,7 @@ h1 {
 
 /* Desbloqueado (puede clicarse) */
 .ramo.unlocked {
-  background: var(--color-indigo);
+  background-color: var(--color-indigo);
   border-color: var(--color-indigo-light);
   cursor: pointer;
   color: var(--color-white);
@@ -123,19 +124,19 @@ h1 {
 
 /* Aprobado */
 .ramo.approved {
-  background: var(--color-green);
+  background-color: var(--color-green);
   border-color: #2e7d32;
   color: var(--color-white);
   box-shadow: 0 0 10px var(--color-green);
-  cursor: default;
-  pointer-events: none;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 /* Tooltip para mostrar pre-requisitos y abre */
 .ramo[data-prereq]:hover::after {
   content: attr(data-prereq);
   position: absolute;
-  background: var(--color-indigo);
+  background-color: var(--color-indigo);
   color: var(--color-white);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
@@ -145,11 +146,6 @@ h1 {
   pointer-events: none;
   z-index: 10;
   box-shadow: 0 0 5px var(--color-indigo-light);
-}
-
-/* Contenedor para posicionar tooltip */
-.ramo {
-  position: relative;
 }
 
 /* Responsive */
