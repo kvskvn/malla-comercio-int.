@@ -38,7 +38,6 @@ h1 {
   margin: 0 auto;
 }
 
-/* Año y trimestre contenedores */
 .year-section {
   background-color: var(--color-blue-dark);
   border-radius: 8px;
@@ -66,14 +65,12 @@ h1 {
   padding-bottom: 0.2rem;
 }
 
-/* Grid de ramos dentro de cada trimestre */
 .ramos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 0.75rem;
 }
 
-/* Cada ramo como botón */
 .ramo {
   background-color: var(--color-indigo);
   border-radius: 6px;
@@ -94,7 +91,6 @@ h1 {
   position: relative;
 }
 
-/* Código del ramo */
 .ramo-code {
   font-family: monospace;
   font-size: 0.85rem;
@@ -102,9 +98,6 @@ h1 {
   color: var(--color-indigo-light);
 }
 
-/* Estados */
-
-/* Bloqueado (no puede clicarse) */
 .ramo.locked {
   background-color: var(--color-gray-dark);
   color: var(--color-gray-light);
@@ -114,7 +107,6 @@ h1 {
   pointer-events: none;
 }
 
-/* Desbloqueado (puede clicarse) */
 .ramo.unlocked {
   background-color: var(--color-indigo);
   border-color: var(--color-indigo-light);
@@ -122,7 +114,6 @@ h1 {
   color: var(--color-white);
 }
 
-/* Aprobado */
 .ramo.approved {
   background-color: var(--color-green);
   border-color: #2e7d32;
@@ -132,7 +123,6 @@ h1 {
   pointer-events: auto;
 }
 
-/* Tooltip para mostrar pre-requisitos y abre */
 .ramo[data-prereq]:hover::after {
   content: attr(data-prereq);
   position: absolute;
@@ -148,7 +138,6 @@ h1 {
   box-shadow: 0 0 5px var(--color-indigo-light);
 }
 
-/* Responsive */
 @media (max-width: 600px) {
   .ramos-grid {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
