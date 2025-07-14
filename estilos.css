@@ -1,1 +1,160 @@
+:root {
+  --color-navy: #001f3f;
+  --color-indigo: #3f51b5;
+  --color-indigo-light: #7986cb;
+  --color-white: #ffffff;
+  --color-gray-dark: #222;
+  --color-gray-light: #ccc;
+  --color-green: #4caf50;
+  --color-red: #f44336;
+  --color-blue-dark: #0d1b3d;
+}
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--color-navy);
+  color: var(--color-white);
+  margin: 0;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--color-indigo-light);
+  text-shadow: 0 0 5px var(--color-indigo);
+}
+
+#malla-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Año y trimestre contenedores */
+.year-section {
+  background: var(--color-blue-dark);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 10px var(--color-indigo);
+}
+
+.year-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-indigo-light);
+  padding-bottom: 0.25rem;
+  color: var(--color-indigo-light);
+}
+
+.trimester-section {
+  margin-top: 1rem;
+}
+
+.trimester-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-indigo);
+  border-bottom: 1px solid var(--color-indigo-light);
+  padding-bottom: 0.2rem;
+}
+
+/* Grid de ramos dentro de cada trimestre */
+.ramos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+/* Cada ramo como botón */
+.ramo {
+  background: var(--color-indigo);
+  border-radius: 6px;
+  padding: 0.5rem;
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  min-height: 70px;
+  text-align: center;
+}
+
+/* Código del ramo */
+.ramo-code {
+  font-family: monospace;
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem;
+  color: var(--color-indigo-light);
+}
+
+/* Estados */
+
+/* Bloqueado (no puede clicarse) */
+.ramo.locked {
+  background: var(--color-gray-dark);
+  color: var(--color-gray-light);
+  cursor: not-allowed;
+  border-color: var(--color-gray-light);
+  box-shadow: none;
+  pointer-events: none;
+}
+
+/* Desbloqueado (puede clicarse) */
+.ramo.unlocked {
+  background: var(--color-indigo);
+  border-color: var(--color-indigo-light);
+  cursor: pointer;
+  color: var(--color-white);
+}
+
+/* Aprobado */
+.ramo.approved {
+  background: var(--color-green);
+  border-color: #2e7d32;
+  color: var(--color-white);
+  box-shadow: 0 0 10px var(--color-green);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Tooltip para mostrar pre-requisitos y abre */
+.ramo[data-prereq]:hover::after {
+  content: attr(data-prereq);
+  position: absolute;
+  background: var(--color-indigo);
+  color: var(--color-white);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  transform: translateY(-120%);
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: 0 0 5px var(--color-indigo-light);
+}
+
+/* Contenedor para posicionar tooltip */
+.ramo {
+  position: relative;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .ramos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+}
