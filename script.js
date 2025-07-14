@@ -184,10 +184,25 @@ function renderMalla() {
       // Botón
       const btn = document.createElement('button');
       btn.className = 'ramo-btn';
-      btn.textContent = ramo.estado === 'aprobado' ? '✓' : (ramo.estado === 'bloqueado' ? '🔒' : '☐');
-      btn.disabled = ramo.estado !== 'disponible';
-      if (ramo.estado === 'aprobado') btn.classList.add('aprobado');
-      btn.onclick = () => aprobarRamo(ramo.codigo);
+      if (ramo.estado === 'aprobado') {
+        btn.textContent = '✓';
+        btn.classList.add('aprobado');
+        btn.disabled = false;
+      } else if (ramo.estado === 'bloqueado') {
+        btn.textContent = '🔒';
+        btn.disabled = true;
+      } else {
+        btn.textContent = '☐';
+        btn.disabled = false;
+      }
+      btn.onclick = () => {
+        // Toggle: si está aprobado, desmarcar; si está disponible, aprobar
+        if (ramo.estado === 'aprobado') {
+          desmarcarRamo(ramo.codigo);
+        } else if (ramo.estado === 'disponible') {
+          aprobarRamo(ramo.codigo);
+        }
+      };
       ramoDiv.appendChild(btn);
 
       // Info
@@ -219,6 +234,34 @@ function aprobarRamo(codigo) {
       r.estado = 'disponible';
     }
   });
+  renderMalla();
+  guardarProgreso();
+}
+
+// ==== Lógica de desmarcar/desbloquear en reversa ====
+function desmarcarRamo(codigo) {
+  const ramo = ramosByCodigo[codigo];
+  if (ramo.estado !== 'aprobado') return;
+  ramo.estado = 'disponible';
+
+  // Bloquear todos los que dependan de este y no tengan todos sus requisitos aprobados
+  function bloquearDependientes(depCodigo) {
+    Object.values(ramosByCodigo).forEach(r => {
+      if (r.requisitos && r.requisitos.includes(depCodigo)) {
+        if (r.estado !== 'bloqueado') {
+          r.estado = 'bloqueado';
+          bloquearDependientes(r.codigo); // recursivo para bloquear sus hijos
+        }
+      }
+    });
+  }
+  bloquearDependientes(codigo);
+
+  // Vuelve a habilitar como disponible los que no tengan requisitos, para no perder acceso inicial
+  Object.values(ramosByCodigo).forEach(r => {
+    if (!r.requisitos && r.estado === 'bloqueado') r.estado = 'disponible';
+  });
+
   renderMalla();
   guardarProgreso();
 }
